@@ -28,14 +28,13 @@ pipeline {
     post {
         always {
             // Archiver le fichier JSON du rapport
-            archiveArtifacts artifacts: 'target/cucumber.json', fingerprint: true
+            archiveArtifacts artifacts: "json:target/cucumber-reports.json"
 
             // Archiver le fichier html du rapport
-            archiveArtifacts artifacts: 'target/cucumber-html-reports/cucumber.html', fingerprint: true
-
+            archiveArtifacts artifacts: "html:target/cucumber-reports.html"
             // Envoyer l'email avec les rapports en pi�ces jointes
             emailext (
-                to: 'proservicetestauto@gmail.com', // Remplacez par l'adresse email du destinataire
+                to: 'hlalihoucine@gmail.com', // Remplacez par l'adresse email du destinataire
                 subject: 'Rapport de test Cucumber',
                 body: 'Bonjour,\nVeuillez trouver ci-joint les rapports g�n�r�s par Cucumber.',
                 attachmentsPattern: 'target/cucumber-html-reports/cucumber.html,target/cucumber.json'
